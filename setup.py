@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="dataio",
+    name="scancli",
     version="0.1",
-    description="Dataio is a dataset automation tool.",
-    author="Accenture Federal Services",
-    author_email="tucker.m.mccoy@accenturefederal.com",
-    keywords="sec edw python data automation",
+    description="Scancli is a Docker image security scanning tool.",
+    author="Tucker McCoy",
+    author_email="tuckermmccoy@gmail.com",
+    keywords="anchore security scan docker image automation",
     packages=find_packages(exclude=["tests"]),
-    install_requires=["Click==7.0", "boto3", "colorama==0.4.1", "requests==2.23.0"],
-    entry_points={"console_scripts": ["dataio=src.main:cli"]},
+    install_requires=["Click==7.0"],
+    entry_points={"console_scripts": ["scancli=src.main:cli"]},
 )

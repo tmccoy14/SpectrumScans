@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 VERSION = "0.1.0"
-CONTEXT_SETTINGS = dict(auto_envvar_prefix="DATAIO")
+CONTEXT_SETTINGS = dict(auto_envvar_prefix="SCANCLI")
 HOME = str(Path.home())
 
 
@@ -14,7 +14,7 @@ HOME = str(Path.home())
 def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
         return
-    click.secho("dataio version: v%s" % VERSION, fg="blue")
+    click.secho("scancli version: v%s" % VERSION, fg="blue")
     ctx.exit()
 
 
@@ -56,7 +56,7 @@ pass_environment = click.make_pass_decorator(Environment, ensure=True)
 cmd_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "commands"))
 
 
-class DATAIO_CLI(click.MultiCommand):
+class SCAN_CLI(click.MultiCommand):
     def list_commands(self, ctx):
         rv = []
         for filename in os.listdir(cmd_folder):
@@ -75,7 +75,7 @@ class DATAIO_CLI(click.MultiCommand):
         return mod.cli
 
 
-@click.command(cls=DATAIO_CLI, context_settings=CONTEXT_SETTINGS)
+@click.command(cls=SCAN_CLI, context_settings=CONTEXT_SETTINGS)
 @click.option(
     "--home",
     type=click.Path(exists=True, file_okay=False, resolve_path=True),
@@ -88,16 +88,17 @@ class DATAIO_CLI(click.MultiCommand):
     callback=print_version,
     expose_value=False,
     is_eager=True,
-    help="Print the current version of dataio.",
+    help="Print the current version of scancli.",
 )
 @pass_environment
 def cli(ctx, verbose, home):
     """
-    Dataio is the standardized tool that can be used to automate the creation
-    of your sratch space. It can be done as easy as passing in the path to the
-    dataset you'd like to create the scratch space for, providing the S3
-    bucket, preferred folder name, and table schema for the dataset.
-    Once you do that, sit back and let Dataio do the rest for you!
+    Scancli is the standardize tool that can be used to scan Docker images
+    to find security vulnerabilities. It uses the open source tool, Anchore,
+    to ensure vulnerability scanning and policy compliance for containers.
+    It can be done as easy as passing in the name of the Docker image and tag
+    you'd like to scan. Once you do that, sit back and let Scancli do the rest
+    for you!
     """
     ctx.verbose = verbose
     if home is not None:

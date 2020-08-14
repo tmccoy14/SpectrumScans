@@ -1,0 +1,6 @@
+black==19.10b0
+coverage
+py
+pytest
+pytest-cov
+tox
