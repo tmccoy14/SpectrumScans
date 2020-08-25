@@ -21,3 +21,6 @@ htmlcov
 .pytest*
 
 .scannerwork*
+
+# Anchore
+achore-reports/
