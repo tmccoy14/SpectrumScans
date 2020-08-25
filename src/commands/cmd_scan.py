@@ -11,14 +11,15 @@ from src.lib.subprocess import Command
 
 @click.command("scan", short_help="Scan Docker image.")
 @click.option(
-    "--image", required=True, help="Docker image name.",
+    "--image", "-i", required=True, help="Docker image name.",
 )
 @click.option(
-    "--tag", required=False, help="Docker image tag.",
+    "--tag", "-t", required=False, help="Docker image tag.",
 )
+@click.option("--export", "-e", required=False, help="Export scan findings.")
 @pass_environment
 def cli(ctx, image, tag):
-    """Scancli scans the provided Docker image for vulnerability findings.
+    """scancli scans the provided Docker image for vulnerability findings.
     Ex. scancli scan --image image/name --tag 0.0.0"""
 
     # Setup subprocesses for all of our tools
