@@ -76,6 +76,7 @@ def cli(ctx, image, tag, export):
         ctx.log("%s" % error.decode("utf-8"))
     ctx.vlog("%s" % output.decode("utf-8"))
 
-    # TODO -- Format output of Anchore scan
-
     ctx.log("✔ Scanned Docker Image...")
+
+    # TODO -- POSSIBLY FORMAT VULNERABILITY COLOR BASED ON STATUS TO GET ALL WARNINGS
+    # TODO -- HANDLE EXPORT OPTION
