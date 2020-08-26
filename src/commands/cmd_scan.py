@@ -17,9 +17,8 @@ from src.lib import vulnerability_color
 @click.option(
     "--tag", "-t", required=False, help="Docker image tag.",
 )
-@click.option("--export", "-e", required=False, help="Export scan findings.")
 @pass_environment
-def cli(ctx, image, tag, export):
+def cli(ctx, image, tag):
     """scancli scans the provided Docker image for vulnerability findings.
     Ex. scancli scan --image image/name --tag 0.0.0"""
 
@@ -77,6 +76,3 @@ def cli(ctx, image, tag, export):
     ctx.vlog("%s" % output.decode("utf-8"))
 
     ctx.log("✔ Scanned Docker Image...")
-
-    # TODO -- POSSIBLY FORMAT VULNERABILITY COLOR BASED ON STATUS TO GET ALL WARNINGS
-    # TODO -- HANDLE EXPORT OPTION
