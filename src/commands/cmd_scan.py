@@ -7,7 +7,7 @@ import click
 """internal dataio modules"""
 from src.main import pass_environment, VERSION
 from src.lib.subprocess import Command
-from src.lib import vulnerability_color
+from src.lib import vulnerability_color, get_image
 
 
 @click.command("scan", short_help="Scan Docker image.")
@@ -23,36 +23,13 @@ def cli(ctx, image, tag):
     Ex. scancli scan --image image/name --tag 0.0.0"""
 
     # Setup subprocesses for all of our tools
-    docker = Command("docker")
     curl = Command("curl")
 
-    # Format Docker pull command with image and tag if provided
+    # Format Docker image name
     if image and tag:
         image_name = "{}:{}".format(image, tag)
-        docker_cmd = "pull {}".format(image_name)
     else:
         image_name = "{}:latest".format(image)
-        docker_cmd = "pull {}".format(image_name)
-
-    ctx.log("+ Pulling Docker Image...")
-
-    # Run Docker pull command
-    process = docker.run(docker_cmd)
-
-    # Grab stdout line by line as it becomes available
-    # This will loop until process terminates
-    while process.poll() is None:
-        line = process.stdout.readline()
-        print(line.decode("utf-8").rstrip())
-
-    output, error = process.communicate()
-    if process.returncode != 0:
-        ctx.log("Failed to pull Docker image", level="error")
-        ctx.log("%s" % error.decode("utf-8"))
-        raise click.UsageError("Ensure correct image and tag was provided.")
-    ctx.vlog("%s" % output.decode("utf-8"))
-
-    ctx.log("✔ Pulled Docker Image...")
 
     ctx.log("+ Scanning Docker Image...")
 
