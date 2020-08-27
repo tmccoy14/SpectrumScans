@@ -7,7 +7,7 @@ import click
 """internal dataio modules"""
 from src.main import pass_environment, VERSION
 from src.lib.subprocess import Command
-from src.lib import vulnerability_color, get_image
+from src.lib import vulnerability_color
 
 
 @click.command("scan", short_help="Scan Docker image.")
