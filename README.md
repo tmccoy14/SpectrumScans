@@ -50,12 +50,27 @@ Options:
   --help            Show this message and exit.
 
 Commands:
+  pull  Pull Docker image.
   scan  Scan Docker image.
 ```
 
 #### Running The Tool
 
-Scancli only has one command, `scancli scan`, which will take the image and tag that you want to scan and return the found vulnerabilities.
+If you don't already have the Docker image pulled locally, you can run the `scanli pull` command to pull the image name and tag provided.
+
+```sh
+Usage: scancli pull [OPTIONS]
+
+  scancli pulls the provided Docker image if it doesn't exist locally for
+  vulnerability findings. Ex. scancli pull --image image/name --tag 0.0.0
+
+Options:
+  -i, --image TEXT  Docker image name.  [required]
+  -t, --tag TEXT    Docker image tag.
+  --help            Show this message and exit.
+```
+
+Once you have the Docker image pulled locally, you can now scan the image by running `scancli scan`, which will take the image and tag that you want to scan and return the found vulnerabilities.
 
 ```sh
 $ scancli scan --help
